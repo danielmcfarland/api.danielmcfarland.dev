@@ -90,7 +90,6 @@ func (s *Server) MicropubHandler(w http.ResponseWriter, r *http.Request) {
 
 	switch data.Get("h") {
 	case "bookmark":
-		fmt.Println(data)
 		if !data.Has("bookmark-of") {
 			w.WriteHeader(http.StatusUnprocessableEntity)
 			return
@@ -200,8 +199,6 @@ func (s *Server) AuthCallbackHandler(w http.ResponseWriter, r *http.Request) {
 
 	access_token := tokenParams["access_token"][0]
 
-	fmt.Println(access_token)
-
 	resp := make(map[string]string)
 	resp["access_token"] = access_token
 
@@ -226,10 +223,7 @@ func randSeq(n int) string {
 }
 
 func createBookmark(bookmarkUrl string) string {
-	fmt.Println(fmt.Sprintf("create bookmark: %v", bookmarkUrl))
-
 	slug := randSeq(5)
-	fmt.Println(slug)
 	date := time.Now()
 	month := date.Month()
 	year := date.Year()
@@ -251,8 +245,6 @@ func createBookmark(bookmarkUrl string) string {
 		Slug:     fmt.Sprintf("2024/05/%v", slug),
 		ClientId: "https://app.danielmcfarland.dev",
 	}
-
-	fmt.Println(entryContent)
 
 	entryContentString, err := json.Marshal(entryContent)
 	if err != nil {
